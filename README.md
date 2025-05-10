@@ -8,7 +8,7 @@
 
 若使用过程中 **Token 与项目名保持不变**，则 **无需手动复制订阅内容**，只需刷新订阅链接即可完成更新。
 
-> 🔁 当前仅支持上传并覆盖 `jh.txt` 文件，Clash_meta 与 sing-box 的适配功能尚在开发中，暂不可用。
+> 🔁 当前仅支持上传并覆盖 `jh.txt` 文件，Clash.Meta 与 sing-box 的适配功能尚在开发中，暂不可用。
 
 ---
 
@@ -26,7 +26,7 @@
 你可以通过设置环境变量的方式，快速执行上传命令：
 
 ```bash
-TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
+TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
 
 将以上命令中的 `your-token-here`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
@@ -42,6 +42,23 @@ bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.s
 ```
 
 ---
+
+## 🔐 安全与隐私说明
+
+本脚本为公开上传工具，仅在用户本地运行，不会收集或上传任何用户信息。
+使用者输入的 GitLab Token、用户名、邮箱、项目名等仅用于本地 Git 操作。
+本脚本不会将任何数据发送至第三方服务器（包括脚本发布者本人）。
+
+如有安全顾虑，可通过 curl 查看源码：
+
+```bash
+curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh | less
+```
+
+建议使用具有最小权限的 GitLab Token，并在使用后及时撤销。
+
+---
+
 
 ## 📚 技术来源与参考
 
