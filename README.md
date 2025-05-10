@@ -29,7 +29,7 @@
 TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
 
-将以上命令中的 `your-token-here`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
+将以上命令中的 `your-token`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
 
 ---
 
