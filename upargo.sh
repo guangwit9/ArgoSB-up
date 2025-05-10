@@ -9,6 +9,9 @@ echo "     curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upar
 echo " 建议使用具有最小权限的 GitLab Token，使用后可随时撤销。"
 echo "=============================================================="
 echo
+echo "按任意键继续..."
+read -n1 -s
+clear
 
 # === 用户交互输入 ===
 read -p "请输入 GitLab Token: " TOKEN
