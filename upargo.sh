@@ -24,8 +24,8 @@ clear
 
 # === 用户交互输入 ===
 read -p "请输入 GitLab Token: " TOKEN
-read -p "请输入 Git 用户名: " GIT_USER
-read -p "请输入 Git 邮箱: " GIT_EMAIL
+read -p "请输入 GitLab 用户名: " GIT_USER
+read -p "请输入 GitLab 邮箱: " GIT_EMAIL
 read -p "请输入 GitLab 项目名: " PROJECT
 
 TMP_DIR="/tmp/idx_upload"
