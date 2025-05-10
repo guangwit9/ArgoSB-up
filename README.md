@@ -12,12 +12,21 @@
 
 ---
 
+## 🛠 项目配置提醒
+
+* 请确保在 GitLab 项目设置中：
+
+  * Settings -> Repository -> Protected branches 中打开 `Allowed to force push`
+  * 使用 GitLab Token 时，请妥善保存生成记录，脚本中不会存储或上传该信息
+
+---
+
 ## 🚀 一行命令快速上传
 
 你可以通过设置环境变量的方式，快速执行上传命令：
 
 ```bash
-TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
+TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
 
 将以上命令中的 `your-token-here`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
@@ -31,15 +40,6 @@ TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="you
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
-
----
-
-## 🛠 项目配置提醒
-
-* 请确保在 GitLab 项目设置中：
-
-  * Settings -> Repository -> Protected branches 中打开 `Allowed to force push`
-  * 使用 GitLab Token 时，请妥善保存生成记录，脚本中不会存储或上传该信息
 
 ---
 
