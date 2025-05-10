@@ -36,6 +36,7 @@ TMP_DIR="/tmp/idx_upload"
 FILES=(
   "/etc/s-box-ag/sb.json"
   "/etc/s-box-ag/jh.txt"
+  "/etc/s-box-ag/list.txt"
 )
 
 git config --global user.name "$GIT_USER"
@@ -62,11 +63,15 @@ for FILE in "${FILES[@]}"; do
   sed -i 's/ \{1,\}/ /g' "./$BASENAME"
 done
 
-git add sb.json jh.txt
-git commit -m "更新 sb.json 与 jh.txt $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
+# 添加所有目标文件
+git add sb.json jh.txt list.txt
+git commit -m "更新 sb.json、jh.txt 和 list.txt $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main --force 2>/dev/null || git push origin master --force
 
+# 输出多个订阅链接
 echo -e "\033[1;32m==============================================================\033[0m"
-echo -e "\033[1;32m你的私人订阅链接：\033[0m"
-echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/jh.txt/raw?ref=main&private_token=$TOKEN"
+echo -e "\033[1;32m你的订阅链接：\033[0m"
+for FILE in "sb.json" "jh.txt" "list.txt"; do
+  echo "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/$FILE/raw?ref=main&private_token=$TOKEN"
+done
 echo -e "\033[1;32m==============================================================\033[0m"
