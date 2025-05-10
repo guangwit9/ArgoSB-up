@@ -2,8 +2,8 @@
 
 echo -e "\033[1;31m==============================================================\033[0m"
 echo -e "\033[1;33m请确保在 GitLab 项目设置中：\033[0m"
-echo -e "\033[1;33m1. 将项目的 \033[1;31mSettings -> Repository -> Protected branches\033[0m 中的 \033[1;31m'Allowed to force push'\033[0m 打开。\033[0m"
-echo -e "\033[1;33m2. 请务必记录下 GitLab Token 生成记录，以备后续使用。\033[0m"
+echo -e "\033[1;33m1. \033[1;31mSettings -> Repository -> Protected branches 中打开 'Allowed to force push'\033[0m"
+echo -e "\033[1;33m2. 请妥善保存你的 GitLab Token，脚本不会存储或上传该信息。\033[0m"
 echo -e "\033[1;31m==============================================================\033[0m"
 echo
 echo -e "\033[1;35m==============================================================\033[0m"
@@ -51,6 +51,11 @@ for FILE in "${FILES[@]}"; do
   fi
 done
 
+# === 修改文件时间戳以触发 Git 识别变更 ===
+for FILE in "${FILES[@]}"; do
+  sudo touch "$FILE"
+done
+
 # === 清理旧临时目录 ===
 rm -rf "$TMP_DIR"
 mkdir -p "$TMP_DIR"
@@ -60,7 +65,7 @@ cd "$TMP_DIR" || exit 1
 git clone https://oauth2:$TOKEN@gitlab.com/$GIT_USER/$PROJECT.git
 cd "$PROJECT" || { echo "项目不存在或路径错误"; exit 1; }
 
-# === 拷贝文件 ===
+# === 拷贝文件到仓库目录 ===
 for FILE in "${FILES[@]}"; do
   BASENAME=$(basename "$FILE")
   sudo cp "$FILE" "./$BASENAME"
@@ -68,9 +73,7 @@ done
 
 # === 添加、提交并推送 ===
 git add sb.json jh.txt
-git commit -m "自动更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" \
-  || git commit --allow-empty -m "强制提交以触发 GitLab 上传"
-
+git commit -m "自动更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main 2>/dev/null || git push origin master
 
 # === 输出订阅链接 ===
