@@ -17,7 +17,7 @@
 * 请确保在 GitLab 项目设置中：
 
   * <b><span style="color:red;">Settings → Repository → Protected branches 中启用 Allowed to force push</span></b>
-  * 使用 GitLab Token 时，请如实保存生成记录，脚本中不会存储或上传该信息
+  * <b><span style="color:red;">使用 GitLab Token 时，请如实保存生成记录，脚本中不会存储或上传该信息</span></b>
 
 ---
 
