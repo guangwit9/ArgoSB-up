@@ -2,7 +2,7 @@
 
 ## 📦 项目简介
 
-本项目是甬哥 [yonggekkk](https://github.com/yonggekkk) 的 ArgoSB 项目的后续增强工具。
+本项目是甬哥 [yonggekkk](https://github.com/yonggekkk) 的 [ArgoSB](https://github.com/yonggekkk/ArgoSB) 项目的后续增强工具。
 
 在执行甬哥的脚本后，可使用本项目脚本将订阅信息自动上传至 GitLab，实现通过 GitLab 的订阅链接进行更新。
 
