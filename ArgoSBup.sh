@@ -51,7 +51,10 @@ for FILE in "${FILES[@]}"; do
   fi
 done
 
-# === 给文件添加时间戳 ===
+# === 移除旧的 upload time 行并添加新的时间戳 ===
+sudo sed -i '/upload time:/d' /etc/s-box-ag/sb.json
+sudo sed -i '/upload time:/d' /etc/s-box-ag/jh.txt
+
 echo "// upload time: $(date '+%Y-%m-%d %H:%M:%S')" | sudo tee -a /etc/s-box-ag/sb.json > /dev/null
 echo "# upload time: $(date '+%Y-%m-%d %H:%M:%S')" | sudo tee -a /etc/s-box-ag/jh.txt > /dev/null
 
