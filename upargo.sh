@@ -13,6 +13,7 @@ echo -e "\033[1;32m本脚本不会将任何数据发送至第三方服务器（�
 echo -e "\033[1;32m如有安全顾虑，可通过 curl 查看源码：\033[0m"
 echo -e "\033[1;32m    curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh | less\033[0m"
 echo -e "\033[1;32m建议使用具有最小权限的 GitLab Token，使用后可随时撤销。\033[0m"
+echo
 echo -e "\033[1;32m此项目参考了甬哥（yonggekkk）关于 GitLab 订阅链接的相关资料，以及 ChatGPT 自动化代码生成技术。\033[0m"
 echo -e "\033[1;31m==============================================================\033[0m"
 echo
