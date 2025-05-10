@@ -26,10 +26,10 @@
 你可以通过设置环境变量的方式，快速执行上传命令：
 
 ```bash
-TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
+TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
 
-将以上命令中的 `your-token-here`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
+将以上命令中的 `your-token`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
 
 ---
 
@@ -63,4 +63,5 @@ curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh | les
 
 ## 📚 技术来源与参考
 
-此项目参考了
+此项目参考了登取兄（yonggekkk）关于 GitLab 订阅链接的相关资料，
+并结合 ChatGPT 自动化脚本生成技术，开发出本地自动上传工具，支持用户更高效地管理订阅文件。
