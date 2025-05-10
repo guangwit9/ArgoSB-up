@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# === 配置信息 ===
-TOKEN="glpat-Huvex8cAqKrUX9MxSdYf"
-GIT_USER="witileguang"
-GIT_EMAIL="witileguang@gmail.com"
-PROJECT="idx"
-TMP_DIR="/tmp/idx_upload"
+# === 收集用户输入 ===
+read -p "请输入 GitLab Token: " TOKEN
+read -p "请输入 Git 用户名: " GIT_USER
+read -p "请输入 Git 邮箱: " GIT_EMAIL
+read -p "请输入 GitLab 项目名: " PROJECT
 
-# === 要上传的文件列表 ===
+TMP_DIR="/tmp/idx_upload"
 FILES=(
   "/etc/s-box-ag/sb.json"
   "/etc/s-box-ag/jh.txt"
@@ -28,7 +27,7 @@ cd "$TMP_DIR"
 
 # === 克隆仓库 ===
 git clone https://oauth2:$TOKEN@gitlab.com/$GIT_USER/$PROJECT.git
-cd "$PROJECT"
+cd "$PROJECT" || { echo "项目不存在或路径错误"; exit 1; }
 
 # === 拷贝并覆盖文件 ===
 for FILE in "${FILES[@]}"; do
