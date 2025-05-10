@@ -2,7 +2,7 @@
 
 echo -e "\033[1;31m==============================================================\033[0m"
 echo -e "\033[1;33m请确保在 GitLab 项目设置中：\033[0m"
-echo -e "\033[1;33m1. 将项目的 Settings -> Repository -> Protected branches 中的 'Allowed to force push' 打开。\033[0m"
+echo -e "\033[1;33m1. 将项目的 \033[1;31mSettings -> Repository -> Protected branches\033[0m 中的 \033[1;31m'Allowed to force push'\033[0m 打开。\033[0m"
 echo -e "\033[1;33m2. 请务必记录下 GitLab Token 生成记录，以备后续使用。\033[0m"
 echo -e "\033[1;31m==============================================================\033[0m"
 echo
@@ -16,7 +16,7 @@ echo -e "\033[1;32m本脚本为公开上传工具，仅在用户本地运行，�
 echo -e "\033[1;32m使用者输入的 GitLab Token、用户名、邮箱、项目名等仅用于本地 Git 操作。\033[0m"
 echo -e "\033[1;32m本脚本不会将任何数据发送至第三方服务器（包括脚本发布者本人）。\033[0m"
 echo -e "\033[1;32m如有安全顾虑，可通过 curl 查看源码：\033[0m"
-echo -e "\033[1;32m    curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBup/main/ArgoSBup.sh | less\033[0m"
+echo -e "\033[1;32m    curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBgit/main/ArgoSBgit.sh | less\033[0m"
 echo -e "\033[1;31m==============================================================\033[0m"
 echo "按任意键继续..."
 read -n1 -s
@@ -51,13 +51,6 @@ for FILE in "${FILES[@]}"; do
   fi
 done
 
-# === 移除旧的 upload time 行并添加新的时间戳 ===
-sudo sed -i '/upload time:/d' /etc/s-box-ag/sb.json
-sudo sed -i '/upload time:/d' /etc/s-box-ag/jh.txt
-
-echo "// upload time: $(date '+%Y-%m-%d %H:%M:%S')" | sudo tee -a /etc/s-box-ag/sb.json > /dev/null
-echo "# upload time: $(date '+%Y-%m-%d %H:%M:%S')" | sudo tee -a /etc/s-box-ag/jh.txt > /dev/null
-
 # === 清理旧临时目录 ===
 rm -rf "$TMP_DIR"
 mkdir -p "$TMP_DIR"
@@ -75,7 +68,9 @@ done
 
 # === 添加、提交并推送 ===
 git add sb.json jh.txt
-git commit -m "自动更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
+git commit -m "自动更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" \
+  || git commit --allow-empty -m "强制提交以触发 GitLab 上传"
+
 git push origin main 2>/dev/null || git push origin master
 
 # === 输出订阅链接 ===
