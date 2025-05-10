@@ -22,7 +22,6 @@ echo "按任意键继续..."
 read -n1 -s
 clear
 
-# === 用户交互输入（支持预设环境变量） ===
 : "${TOKEN:=}"
 : "${GIT_USER:=}"
 : "${GIT_EMAIL:=}"
@@ -39,11 +38,9 @@ FILES=(
   "/etc/s-box-ag/jh.txt"
 )
 
-# === 设置 Git 用户身份 ===
 git config --global user.name "$GIT_USER"
 git config --global user.email "$GIT_EMAIL"
 
-# === 确保文件存在 ===
 for FILE in "${FILES[@]}"; do
   if [ ! -f "$FILE" ]; then
     echo "错误：找不到文件 $FILE"
@@ -51,28 +48,24 @@ for FILE in "${FILES[@]}"; do
   fi
 done
 
-# === 清理旧临时目录 ===
 rm -rf "$TMP_DIR"
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR" || exit 1
 
-# === 克隆 GitLab 仓库 ===
 git clone https://oauth2:$TOKEN@gitlab.com/$GIT_USER/$PROJECT.git
 cd "$PROJECT" || { echo "项目不存在或路径错误"; exit 1; }
 
-# === 拷贝文件并更新时间戳 ===
 for FILE in "${FILES[@]}"; do
   BASENAME=$(basename "$FILE")
   sudo cp "$FILE" "./$BASENAME"
-  touch "./$BASENAME"
+  # 替换一下空格 -> 空格（骗 Git 认为内容变了）
+  sed -i 's/ \{1,\}/ /g' "./$BASENAME"
 done
 
-# === 添加、提交并强制推送 ===
 git add sb.json jh.txt
-git commit -m "强制更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" --allow-empty
+git commit -m "更新 sb.json 与 jh.txt $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main --force 2>/dev/null || git push origin master --force
 
-# === 输出订阅链接 ===
 echo -e "\033[1;32m==============================================================\033[0m"
 echo -e "\033[1;32m你的私人订阅链接：\033[0m"
 echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/jh.txt/raw?ref=main&private_token=$TOKEN"
