@@ -74,3 +74,9 @@ done
 git add sb.json jh.txt
 git commit -m "自动更新 sb.json 与 jh.txt 文件 $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main 2>/dev/null || git push origin master
+
+# === 输出订阅链接 ===
+echo -e "\033[1;32m==============================================================\033[0m"
+echo -e "\033[1;32m你的私人订阅链接：\033[0m"
+echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/jh.txt/raw?ref=main&private_token=$TOKEN"
+echo -e "\033[1;32m==============================================================\033[0m"
