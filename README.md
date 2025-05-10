@@ -2,13 +2,13 @@
 
 ## 📦 项目简介
 
-本项目是甬哥 [yonggekkk](https://github.com/yonggekkk) 的 ArgoSB 项目的后续增强工具。
+本项目是登取兄 [yonggekkk](https://github.com/yonggekkk) 的 ArgoSB 项目的后续增强工具。
 
-在执行甬哥的脚本后，可使用本项目脚本将订阅信息自动上传至 GitLab，实现通过 GitLab 的订阅链接进行更新。
+在执行登取兄的脚本后，可使用本项目脚本将订阅信息自动上传至 GitLab，实现通过 GitLab 的订阅链接进行更新。
 
 若使用过程中 **Token 与项目名保持不变**，则 **无需手动复制订阅内容**，只需刷新订阅链接即可完成更新。
 
-> 🔁 当前仅支持上传并覆盖 `jh.txt` 文件，Clash-Meta 与 sing-box 的适配功能尚在开发中，暂不可用。
+> 🔁 当前仅支持上传并覆盖 `jh.txt`文件，Clash\_meta 与 sing-box 的适配功能尚在开发中，暂不可用。
 
 ---
 
@@ -17,7 +17,7 @@
 * 请确保在 GitLab 项目设置中：
 
   * Settings -> Repository -> Protected branches 中打开 `Allowed to force push`
-  * 使用 GitLab Token 时，请妥善保存生成记录，脚本中不会存储或上传该信息
+  * 使用 GitLab Token 时，请如实保存生成记录，脚本中不会存储或上传该信息
 
 ---
 
@@ -29,7 +29,7 @@
 TOKEN="your-token-here" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh)
 ```
 
-将以上命令中的 `your-token`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
+将以上命令中的 `your-token-here`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
 
 ---
 
@@ -47,20 +47,20 @@ bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.s
 
 本脚本为公开上传工具，仅在用户本地运行，不会收集或上传任何用户信息。
 使用者输入的 GitLab Token、用户名、邮箱、项目名等仅用于本地 Git 操作。
-本脚本不会将任何数据发送至第三方服务器（包括脚本发布者本人）。
+脚本不会将任何数据发送至第三方服务器（包括脚本发布者本人）。
 
-如有安全顾虑，可通过 curl 查看源码：
+运行本脚本的用户，完全无需担心会被上传订阅链接，与你其他用户互不交，订阅链接不会被其他人看到或传送给脚本编写者。
+
+如有安全须要，可以使用 curl 查看脚本源码：
 
 ```bash
 curl -Ls https://raw.githubusercontent.com/guangwit9/upargo/main/upargo.sh | less
 ```
 
-建议使用具有最小权限的 GitLab Token，并在使用后及时撤销。
+建议使用具有最小权限的 GitLab Token，并在使用后立即撤销。
 
 ---
 
-
 ## 📚 技术来源与参考
 
-此项目参考了甬哥（yonggekkk）关于 GitLab 订阅链接的相关资料，
-并结合 ChatGPT 自动化脚本生成技术，开发出本地自动上传工具，支持用户更高效地管理订阅文件。
+此项目参考了
