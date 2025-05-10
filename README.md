@@ -1,4 +1,4 @@
-# ArgoSB-up
+# ArgoSBup
 
 ## 📦 项目简介
 
@@ -26,7 +26,7 @@
 你可以通过设置环境变量的方式，快速执行上传命令：
 
 ```bash
-TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSB-up/main/ArgoSB-up.sh)
+TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBup/main/ArgoSBup.sh)
 ```
 
 将以上命令中的 `your-token`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
@@ -38,7 +38,7 @@ TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-pro
 如果你未设置环境变量，也可以直接执行以下命令，脚本将引导你手动输入相关信息：
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSB-up/main/ArgoSB-up.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBup/main/ArgoSBup.sh)
 ```
 
 ---
@@ -54,7 +54,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSB-up/main/ArgoS
 如有安全须要，可以使用 curl 查看脚本源码：
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSB-up/main/ArgoSB-up.sh | less
+curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBup/main/ArgoSBup.sh | less
 ```
 
 建议使用具有最小权限的 GitLab Token，并在使用后立即撤销。
@@ -63,5 +63,5 @@ curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSB-up/main/ArgoSB-up.sh
 
 ## 📚 技术来源与参考
 
-此项目参考了登取兄（yonggekkk）关于 GitLab 订阅链接的相关资料，
+此项目参考了甬哥 [yonggekkk](https://github.com/yonggekkk) 关于 GitLab 订阅链接的相关资料，
 并结合 ChatGPT 自动化脚本生成技术，开发出本地自动上传工具，支持用户更高效地管理订阅文件。
