@@ -18,9 +18,6 @@ echo -e "\033[1;32m本脚本不会将任何数据发送至第三方服务器（�
 echo -e "\033[1;32m如有安全顾虑，可通过 curl 查看源码：\033[0m"
 echo -e "\033[1;32m    curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBgit/main/ArgoSBgit.sh | less\033[0m"
 echo -e "\033[1;31m==============================================================\033[0m"
-echo "按任意键继续..."
-read -n1 -s
-clear
 
 : "${TOKEN:=}"
 : "${GIT_USER:=}"
