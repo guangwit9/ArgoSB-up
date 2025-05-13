@@ -23,7 +23,7 @@
 
 ## 🚀 一行命令快速上传
 
-带`nix`的方式
+带`nix`的方式；"甬哥的reset之后不用再输命令的，等有时间我去瞅瞅怎么放进来"
 
 ```bash
 nix=y TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBgit/main/ArgoSBgit.sh)
