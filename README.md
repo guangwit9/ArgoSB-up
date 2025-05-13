@@ -23,6 +23,12 @@
 
 ## 🚀 一行命令快速上传
 
+带`nix`的方式
+
+```bash
+nix=y TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBgit/main/ArgoSBgit.sh)
+```
+
 你可以通过设置环境变量的方式，快速执行上传命令：
 
 ```bash
@@ -30,12 +36,6 @@ TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-pro
 ```
 
 将以上命令中的 `your-token`、`your-name`、`your-email`、`your-project` 替换为你自己的 GitLab 信息。
-
-带`nix`的方式
-
-```bash
-nix=y TOKEN="your-token" GIT_USER="your-name" GIT_EMAIL="your-email" PROJECT="your-project" bash <(curl -Ls https://raw.githubusercontent.com/guangwit9/ArgoSBgit/main/ArgoSBgit.sh)
-```
 
 ---
 
