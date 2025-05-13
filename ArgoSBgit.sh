@@ -46,18 +46,35 @@ NIXAG_BASENAME="nix_jh.txt"
 git config --global user.name "$GIT_USER"
 git config --global user.email "$GIT_EMAIL"
 
-for FILE in "${FILES[@]}"; do
-  if [ ! -f "$FILE" ]; then
-    echo "错误：找不到文件 $FILE"
+# 如果设置了 nix，只上传 nix_jh.txt
+if [ -n "$nix" ]; then
+  if [ ! -f "$NIXAG_FILE" ]; then
+    echo "错误：找不到文件 $NIXAG_FILE"
     exit 1
   fi
-done
 
-if [ ! -f "$NIXAG_FILE" ]; then
-  echo "错误：找不到文件 $NIXAG_FILE"
-  exit 1
+  rm -rf "$TMP_DIR"
+  mkdir -p "$TMP_DIR"
+  cd "$TMP_DIR" || exit 1
+
+  git clone https://oauth2:$TOKEN@gitlab.com/$GIT_USER/$PROJECT.git
+  cd "$PROJECT" || { echo "项目不存在或路径错误"; exit 1; }
+
+  sudo cp "$NIXAG_FILE" "./$NIXAG_BASENAME"
+  sed -i 's/ \{1,\}/ /g' "./$NIXAG_BASENAME"
+
+  git add "$NIXAG_BASENAME"
+  git commit -m "更新 $NIXAG_BASENAME $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
+  git push origin main --force 2>/dev/null || git push origin master --force
+
+  echo -e "\033[1;32m==============================================================\033[0m"
+  echo -e "\033[1;32m你的私人订阅链接（nix_jh.txt）：\033[0m"
+  echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/nix_jh.txt/raw?ref=main&private_token=$TOKEN"
+  echo -e "\033[1:32m==============================================================\033[0m"
+  exit 0
 fi
 
+# 否则，上传所有文件
 rm -rf "$TMP_DIR"
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR" || exit 1
@@ -65,32 +82,18 @@ cd "$TMP_DIR" || exit 1
 git clone https://oauth2:$TOKEN@gitlab.com/$GIT_USER/$PROJECT.git
 cd "$PROJECT" || { echo "项目不存在或路径错误"; exit 1; }
 
+# 上传其他文件
 for FILE in "${FILES[@]}"; do
   BASENAME=$(basename "$FILE")
   sudo cp "$FILE" "./$BASENAME"
   sed -i 's/ \{1,\}/ /g' "./$BASENAME"
 done
 
-# 如果使用了 nix，则上传 nix_jh.txt
-if [ -n "$nix" ]; then
-  sudo cp "$NIXAG_FILE" "./$NIXAG_BASENAME"
-  sed -i 's/ \{1,\}/ /g' "./$NIXAG_BASENAME"
-  git add sb.json jh.txt list.txt "$NIXAG_BASENAME"
-else
-  git add sb.json jh.txt list.txt
-fi
-
-git commit -m "更新 sb.json、jh.txt、list.txt 和 $NIXAG_BASENAME $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
+git add sb.json jh.txt list.txt
+git commit -m "更新 sb.json、jh.txt、list.txt $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main --force 2>/dev/null || git push origin master --force
 
 echo -e "\033[1;32m==============================================================\033[0m"
 echo -e "\033[1;32m你的私人订阅链接（仅 jh.txt）：\033[0m"
 echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/jh.txt/raw?ref=main&private_token=$TOKEN"
-
-# 如果使用了 nix，则展示 nix_jh.txt 的链接
-if [ -n "$nix" ]; then
-  echo -e "\033[1;32m你的私人订阅链接（nix_jh.txt）：\033[0m"
-  echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/nix_jh.txt/raw?ref=main&private_token=$TOKEN"
-fi
-
 echo -e "\033[1:32m==============================================================\033[0m"
