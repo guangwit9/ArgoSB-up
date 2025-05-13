@@ -26,6 +26,7 @@ clear
 : "${GIT_USER:=}"
 : "${GIT_EMAIL:=}"
 : "${PROJECT:=}"
+: "${nix:=}"
 
 [ -z "$TOKEN" ] && read -p "请输入 GitLab Token: " TOKEN
 [ -z "$GIT_USER" ] && read -p "请输入 GitLab 用户名: " GIT_USER
@@ -70,18 +71,26 @@ for FILE in "${FILES[@]}"; do
   sed -i 's/ \{1,\}/ /g' "./$BASENAME"
 done
 
-# 处理额外的 nix_jh.txt 文件
-sudo cp "$NIXAG_FILE" "./$NIXAG_BASENAME"
-sed -i 's/ \{1,\}/ /g' "./$NIXAG_BASENAME"
+# 如果使用了 nix，则上传 nix_jh.txt
+if [ -n "$nix" ]; then
+  sudo cp "$NIXAG_FILE" "./$NIXAG_BASENAME"
+  sed -i 's/ \{1,\}/ /g' "./$NIXAG_BASENAME"
+  git add sb.json jh.txt list.txt "$NIXAG_BASENAME"
+else
+  git add sb.json jh.txt list.txt
+fi
 
-git add sb.json jh.txt list.txt "$NIXAG_BASENAME"
 git commit -m "更新 sb.json、jh.txt、list.txt 和 $NIXAG_BASENAME $(date '+%Y-%m-%d %H:%M:%S')" || echo "无变化可提交"
 git push origin main --force 2>/dev/null || git push origin master --force
 
 echo -e "\033[1;32m==============================================================\033[0m"
 echo -e "\033[1;32m你的私人订阅链接（仅 jh.txt）：\033[0m"
 echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/jh.txt/raw?ref=main&private_token=$TOKEN"
-echo
-echo -e "\033[1;32m你的私人订阅链接（nix_jh.txt）：\033[0m"
-echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/nix_jh.txt/raw?ref=main&private_token=$TOKEN"
+
+# 如果使用了 nix，则展示 nix_jh.txt 的链接
+if [ -n "$nix" ]; then
+  echo -e "\033[1;32m你的私人订阅链接（nix_jh.txt）：\033[0m"
+  echo -e "https://gitlab.com/api/v4/projects/$GIT_USER%2F$PROJECT/repository/files/nix_jh.txt/raw?ref=main&private_token=$TOKEN"
+fi
+
 echo -e "\033[1:32m==============================================================\033[0m"
